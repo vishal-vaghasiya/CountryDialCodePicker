@@ -1,10 +1,3 @@
-//
-//  SwiftUIDemoApp.swift
-//  SwiftUIDemo
-//
-//  Created by Nexios Technologies on 18/11/25.
-//
-
 import SwiftUI
 import CoreData
 

@@ -1,12 +1,5 @@
-//
-//  ContentView.swift
-//  SwiftUIDemo
-//
-//  Created by Nexios Technologies on 18/11/25.
-//
-
 import SwiftUI
-import CountryDialCodePicker
+import DialCodeKit
 
 struct ContentView: View {
     @State private var selectedCountry: Country?

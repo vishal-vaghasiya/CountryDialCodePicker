@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0F8153862ECC66220002EA0B /* CountryDialCodePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 0F8153852ECC66220002EA0B /* CountryDialCodePicker */; };
+		0F8153A22ECC6F110002EA0B /* DialCodeKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0F8153A12ECC6F110002EA0B /* DialCodeKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,7 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F8153862ECC66220002EA0B /* CountryDialCodePicker in Frameworks */,
+				0F8153A22ECC6F110002EA0B /* DialCodeKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +83,7 @@
 			);
 			name = UIKitDemo;
 			packageProductDependencies = (
-				0F8153852ECC66220002EA0B /* CountryDialCodePicker */,
+				0F8153A12ECC6F110002EA0B /* DialCodeKit */,
 			);
 			productName = UIKitDemo;
 			productReference = 0F8153252ECC488D0002EA0B /* UIKitDemo.app */;
@@ -114,7 +114,7 @@
 			mainGroup = 0F81531C2ECC488D0002EA0B;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				0F8153842ECC66220002EA0B /* XCLocalSwiftPackageReference "../../../CountryDialCodePicker" */,
+				0F8153A02ECC6F110002EA0B /* XCLocalSwiftPackageReference "../../../DialCodeKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0F8153262ECC488D0002EA0B /* Products */;
@@ -356,16 +356,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		0F8153842ECC66220002EA0B /* XCLocalSwiftPackageReference "../../../CountryDialCodePicker" */ = {
+		0F8153A02ECC6F110002EA0B /* XCLocalSwiftPackageReference "../../../DialCodeKit" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../../CountryDialCodePicker;
+			relativePath = ../../../DialCodeKit;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		0F8153852ECC66220002EA0B /* CountryDialCodePicker */ = {
+		0F8153A12ECC6F110002EA0B /* DialCodeKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = CountryDialCodePicker;
+			productName = DialCodeKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

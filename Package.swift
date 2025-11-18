@@ -4,20 +4,20 @@
 import PackageDescription
 
 let package = Package(
-    name: "CountryDialCodePicker",
+    name: "DialCodeKit",
     defaultLocalization: "en",
     platforms: [
         .iOS(.v15)
     ],
     products: [
         .library(
-            name: "CountryDialCodePicker",
-            targets: ["CountryDialCodePicker"]
+            name: "DialCodeKit",
+            targets: ["DialCodeKit"]
         ),
     ],
     targets: [
         .target(
-            name: "CountryDialCodePicker",
+            name: "DialCodeKit",
             resources: [
                 .process("Data/countries.json"),
                 .process("Assets/Flags")

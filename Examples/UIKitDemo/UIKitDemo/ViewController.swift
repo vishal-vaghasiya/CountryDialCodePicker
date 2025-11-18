@@ -4,7 +4,7 @@
 //
 
 import UIKit
-import CountryDialCodePicker
+import DialCodeKit
 class ViewController: UIViewController {
     
     override func viewDidLoad() {
@@ -30,7 +30,6 @@ class ViewController: UIViewController {
                 print("Picker cancelled")
             }
         )
-        pickerVC.delegate
         present(pickerVC, animated: true)
     }
 }
