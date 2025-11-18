@@ -64,179 +64,97 @@ import CountryDialCodePicker
 
 ### Basic Usage Example
 
-Here’s a simple example to present the country dial code picker and handle the selected country:
+Here’s an updated example using the new demo-based API for presenting the country picker and handling the selected country:
 
 ```swift
 import SwiftUI
 import CountryDialCodePicker
 
 struct ContentView: View {
-    @State private var selectedCountry: CountryDialCode? = nil
-    @State private var isPickerPresented = false
+    @State private var selectedCountry: Country?
+    @State private var isPresented = false
 
     var body: some View {
-        VStack {
-            if let country = selectedCountry {
-                Text("Selected: \(country.name) (\(country.dialCode))")
+        VStack(spacing: 20) {
+
+            if let selectedCountry {
+                HStack {
+                    Text(selectedCountry.flagEmoji)
+                        .font(.largeTitle)
+                    Text("\(selectedCountry.name) \(selectedCountry.dialCode)")
+                        .font(.title3)
+                }
             } else {
                 Text("No country selected")
+                    .foregroundColor(.gray)
             }
 
-            Button("Select Country") {
-                isPickerPresented = true
+            Button("Open Country Picker") {
+                isPresented = true
             }
-            .sheet(isPresented: $isPickerPresented) {
-                CountryDialCodePickerView { country in
-                    selectedCountry = country
-                    isPickerPresented = false
-                }
-            }
+            .font(.title2)
+            .padding()
         }
-        .padding()
-    }
-}
-```
-
-### Passing a Previously Selected Country
-
-You can pass a previously selected country to the picker so it highlights that country when the user opens it again.
-
-#### SwiftUI Example
-
-```swift
-import SwiftUI
-import CountryDialCodePicker
-
-struct ContentView: View {
-    @State private var selectedCountry: CountryDialCode? = nil
-    @State private var isPickerPresented = false
-
-    var body: some View {
-        VStack {
-            if let country = selectedCountry {
-                Text("Selected: \(country.name) (\(country.dialCode))")
-            } else {
-                Text("No country selected")
-            }
-
-            Button("Select Country") {
-                isPickerPresented = true
-            }
-            .sheet(isPresented: $isPickerPresented) {
-                CountryDialCodePickerView(selectedCountry: selectedCountry) { country in
+        .sheet(isPresented: $isPresented) {
+            CountryPicker.view(
+                config: CountryPickerConfig(
+                    displayMode: .countryFlagAndCode,
+                    showSearch: true,
+                    showIndexBar: true,
+                    title: "Select Country"
+                ),
+                onSelect: { country in
                     selectedCountry = country
-                    isPickerPresented = false
+                    isPresented = false
+                },
+                onCancel: {
+                    isPresented = false
                 }
-            }
+            )
         }
-        .padding()
     }
 }
 ```
 
 #### UIKit Example
 
-You can also pass the previously selected country to the UIKit picker view controller to highlight it:
-
 ```swift
 import UIKit
 import CountryDialCodePicker
 
-class MyViewController: UIViewController, CountryDialCodePickerDelegate {
-    var selectedCountry: CountryDialCode?
+class MyViewController: UIViewController, CountryPickerDelegate {
+    var selectedCountry: Country?
 
     @IBAction func showPicker(_ sender: Any) {
-        let pickerVC = CountryDialCodePickerViewController(selectedCountry: selectedCountry)
-        pickerVC.delegate = self
-        pickerVC.modalPresentationStyle = .formSheet // or .pageSheet, .fullScreen, etc.
-        present(pickerVC, animated: true, completion: nil)
-    }
-
-    // MARK: - CountryDialCodePickerDelegate
-    func countryDialCodePicker(_ picker: CountryDialCodePickerViewController, didSelect country: CountryDialCode) {
-        selectedCountry = country
-        dismiss(animated: true, completion: nil)
-        // Update your UI here with selectedCountry
-    }
-}
-```
-
-Alternatively, using the closure-based initializer:
-
-```swift
-import UIKit
-import CountryDialCodePicker
-
-class MyViewController: UIViewController {
-    var selectedCountry: CountryDialCode?
-
-    @IBAction func showPicker(_ sender: Any) {
-        let pickerVC = CountryDialCodePickerViewController(selectedCountry: selectedCountry) { [weak self] country in
-            self?.selectedCountry = country
-            self?.dismiss(animated: true, completion: nil)
-            // Update your UI here with selectedCountry
-        }
+        let pickerVC = CountryPickerViewController(
+            config: CountryPickerConfig(
+                displayMode: .countryFlagAndCode,
+                showSearch: true,
+                showIndexBar: true,
+                title: "Select Country"
+            ),
+            onSelect: { [weak self] country in
+                self?.selectedCountry = country
+                self?.dismiss(animated: true)
+            },
+            onCancel: { [weak self] in
+                self?.dismiss(animated: true)
+            }
+        )
         pickerVC.modalPresentationStyle = .formSheet
-        present(pickerVC, animated: true, completion: nil)
-    }
-}
-```
-
-### UIKit Usage Example
-
-You can use `CountryDialCodePicker` in UIKit by presenting it as a modal view controller. Below are beginner-friendly examples for both delegate-based and closure-based selection handling.
-
-#### Delegate-Based Example
-
-First, make your view controller conform to the `CountryDialCodePickerDelegate` protocol:
-
-```swift
-import UIKit
-import CountryDialCodePicker
-
-class MyViewController: UIViewController, CountryDialCodePickerDelegate {
-    var selectedCountry: CountryDialCode?
-
-    @IBAction func showPicker(_ sender: Any) {
-        let pickerVC = CountryDialCodePickerViewController()
-        pickerVC.delegate = self
-        pickerVC.modalPresentationStyle = .formSheet // or .pageSheet, .fullScreen, etc.
-        present(pickerVC, animated: true, completion: nil)
+        present(pickerVC, animated: true)
     }
 
-    // MARK: - CountryDialCodePickerDelegate
-    func countryDialCodePicker(_ picker: CountryDialCodePickerViewController, didSelect country: CountryDialCode) {
+    // MARK: - CountryPickerDelegate
+    func countryPicker(didSelect country: Country) {
         selectedCountry = country
-        dismiss(animated: true, completion: nil)
-        // Update your UI here with selectedCountry
+    }
+
+    func countryPickerDidCancel() {
+        dismiss(animated: true)
     }
 }
 ```
-
-#### Closure-Based Example
-
-Alternatively, you can use a closure for selection:
-
-```swift
-import UIKit
-import CountryDialCodePicker
-
-class MyViewController: UIViewController {
-    var selectedCountry: CountryDialCode?
-
-    @IBAction func showPicker(_ sender: Any) {
-        let pickerVC = CountryDialCodePickerViewController { [weak self] country in
-            self?.selectedCountry = country
-            self?.dismiss(animated: true, completion: nil)
-            // Update your UI here with selectedCountry
-        }
-        pickerVC.modalPresentationStyle = .formSheet
-        present(pickerVC, animated: true, completion: nil)
-    }
-}
-```
-
-**Note:** Make sure to import `CountryDialCodePicker` and present the picker modally from your view controller. You can customize the presentation style as needed.
 
 ### Customizations
 

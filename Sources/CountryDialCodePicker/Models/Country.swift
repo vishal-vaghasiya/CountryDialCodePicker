@@ -3,7 +3,6 @@ import Foundation
 import SwiftUI
 #endif
 import UIKit
-import SwiftUICore
 
 public struct Country: Identifiable, Hashable, Codable, Sendable {
     public let id: String        // ISO code (also used as the flag image name)
